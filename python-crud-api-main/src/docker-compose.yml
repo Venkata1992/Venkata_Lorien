@@ -11,6 +11,6 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=titanicdb
+      - POSTGRES_DB=Insdb
       - POSTGRES_USER=dbuser0
       - POSTGRES_PASSWORD=pwd0* 

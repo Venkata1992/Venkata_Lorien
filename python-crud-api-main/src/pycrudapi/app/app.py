@@ -23,7 +23,7 @@ def zero():
     return jsonify({'0':''}), 201
 
 try:
-    pgdb_conn_pool = psycopg2.pool.ThreadedConnectionPool(1, 20, host="postgres0", user="dbuser0", password="pwd0*", database="titanicdb")
+    pgdb_conn_pool = psycopg2.pool.ThreadedConnectionPool(1, 20, host="postgres0", user="dbuser0", password="pwd0*", database="Insdb")
 
     if (pgdb_conn_pool):
         print("passengerlist - pgdb connected")
@@ -31,10 +31,10 @@ try:
     # GET all
     @app.route('/passengerlist', methods=['GET'])
     def get_passengerlist():
-#        conn = psycopg2.connect(host='postgres0', user='dbuser0', password='pwd0*', dbname='titanicdb')
+#        conn = psycopg2.connect(host='postgres0', user='dbuser0', password='pwd0*', dbname='Insdb')
         conn = pgdb_conn_pool.getconn()
         cur = conn.cursor(cursor_factory=RealDictCursor)
-        cur.execute("SELECT * FROM titanic")
+        cur.execute("SELECT * FROM Ins")
         resp = cur.fetchall()
         cur.close()
     #    conn.close()
@@ -53,16 +53,16 @@ try:
         _siblingsOrSpousesAboard = req_data['siblingsOrSpousesAboard']
         _parentsOrChildrenAboard = req_data['parentsOrChildrenAboard']
         _fare = req_data['fare']
-        query = 'INSERT INTO titanic(survived, "passengerClass", name, sex, age, "siblingsOrSpousesAboard", "parentsOrChildrenAboard", fare) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)'
+        query = 'INSERT INTO Ins(survived, "passengerClass", name, sex, age, "siblingsOrSpousesAboard", "parentsOrChildrenAboard", fare) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)'
         post_data = (_survived, _passengerClass, _name, _sex, _age,
                     _siblingsOrSpousesAboard, _parentsOrChildrenAboard, _fare)
-    #    conn = psycopg2.connect(host='postgres0', user='dbuser0', password='pwd0*', dbname='titanicdb')
+    #    conn = psycopg2.connect(host='postgres0', user='dbuser0', password='pwd0*', dbname='Insdb')
         conn = pgdb_conn_pool.getconn()
         cur = conn.cursor()
         cur.execute(query, post_data)
         conn.commit()
         cur.close()
-        query = "SELECT * FROM titanic WHERE name = " + "'" + _name + "'"
+        query = "SELECT * FROM Ins WHERE name = " + "'" + _name + "'"
         cur = conn.cursor(cursor_factory=RealDictCursor)
         cur.execute(query)
         resp = cur.fetchall()
@@ -74,10 +74,10 @@ try:
     # GET
     @app.route('/getpassenger/<uuid:id>', methods=['GET'])
     def get_passenger(id):
-        #    conn = psycopg2.connect(host='postgres0', user='dbuser0', password='pwd0*', dbname='titanicdb')
+        #    conn = psycopg2.connect(host='postgres0', user='dbuser0', password='pwd0*', dbname='Insdb')
         conn = pgdb_conn_pool.getconn()
         cur = conn.cursor(cursor_factory=RealDictCursor)
-        query = "SELECT * FROM titanic where uuid::text = " + "'" + str(id) + "'"
+        query = "SELECT * FROM Ins where uuid::text = " + "'" + str(id) + "'"
         cur.execute(query)
         resp = cur.fetchone()
         cur.close()
@@ -88,10 +88,10 @@ try:
     # DELETE
     @app.route('/deletepassenger/<uuid:id>', methods=['DELETE'])
     def delete_passenger(id):
-        #    conn = psycopg2.connect(host='postgres0', user='dbuser0', password='pwd0*', dbname='titanicdb')
+        #    conn = psycopg2.connect(host='postgres0', user='dbuser0', password='pwd0*', dbname='Insdb')
         conn = pgdb_conn_pool.getconn()
         cur = conn.cursor()
-        query = "DELETE FROM titanic WHERE uuid::text = " + "'" + str(id) + "'"
+        query = "DELETE FROM Ins WHERE uuid::text = " + "'" + str(id) + "'"
         cur.execute(query)
         resp = conn.commit()
         cur.close()
@@ -111,11 +111,11 @@ try:
         _siblingsOrSpousesAboard = req_data['siblingsOrSpousesAboard']
         _parentsOrChildrenAboard = req_data['parentsOrChildrenAboard']
         _fare = req_data['fare']
-        query = 'UPDATE titanic SET survived = %s, "passengerClass" = %s, name = %s, sex = %s, age = %s, "siblingsOrSpousesAboard" = %s, "parentsOrChildrenAboard" = %s, fare = %s WHERE uuid::text = ' + \
+        query = 'UPDATE Ins SET survived = %s, "passengerClass" = %s, name = %s, sex = %s, age = %s, "siblingsOrSpousesAboard" = %s, "parentsOrChildrenAboard" = %s, fare = %s WHERE uuid::text = ' + \
             "'" + str(id) + "'"
         put_data = (_survived, _passengerClass, _name, _sex, _age,
                     _siblingsOrSpousesAboard, _parentsOrChildrenAboard, _fare)
-    #    conn = psycopg2.connect(host='postgres0', user='dbuser0', password='pwd0*', dbname='titanicdb')
+    #    conn = psycopg2.connect(host='postgres0', user='dbuser0', password='pwd0*', dbname='Insdb')
         conn = pgdb_conn_pool.getconn()
         cur = conn.cursor()
         cur.execute(query, put_data)
