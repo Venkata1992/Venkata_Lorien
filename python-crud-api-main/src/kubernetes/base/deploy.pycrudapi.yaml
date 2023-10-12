@@ -17,7 +17,7 @@ spec:
         run: pycrudapi
     spec:
       containers:
-      - image: ghcr.io/venkatapython/python-crud-api:latest
+      - image: ghcr.io/Venkata_Lorien/python-crud-api:latest
         imagePullPolicy: IfNotPresent
         name: pycrudapi
         ports:
