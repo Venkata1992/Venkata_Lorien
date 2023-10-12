@@ -9,7 +9,7 @@ RUN pip3 install flask flask_uuid psycopg2-binary gunicorn
 RUN apk add -u git && \
     mkdir /code && \
     cd /code && \
-    git clone https://github.com/longwuyuan/python-crud-api.git && \
+    git clone https://github.com/venkatapython/python-crud-api.git && \
 # Configure the container
     rm /etc/nginx/conf.d/default.conf && \
     cp /code/python-crud-api/src/pycrudapi/conf/default.conf /etc/nginx/conf.d/default.conf && \
