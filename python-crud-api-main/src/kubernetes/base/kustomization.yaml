@@ -5,5 +5,5 @@ resources:
 - svc.postgres0.yaml
 - svc.pycrudapi.yaml
 images:
-- name: ghcr.io/venkatapython/python-crud-api
+- name: ghcr.io/Venkata1992/Venkata_Lorien-api
   newTag: main-17c244f
