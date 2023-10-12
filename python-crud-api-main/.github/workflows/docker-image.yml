@@ -62,8 +62,8 @@ jobs:
           NEW_TAG=`echo $FULL_IMAGE_NAME | cut -f2 -d":"`
           sed -i "s|newTag:.*|newTag: $NEW_TAG|" kustomization.yaml
           kubectl kustomize ./ > ../../../install/pycrudapi.yaml
-          git config --local user.email "longwuyuan@gmail.com"
-          git config --local user.name "longwuyuan"
+          git config --local user.email "venkata.ravella@outlook.com"
+          git config --local user.name "venkatapython"
           git add -A
           COMMIT_MSG="Change pycrudapi image tag to $NEW_TAG"
           git commit -m "$COMMIT_MSG"

@@ -5,5 +5,5 @@ resources:
 - svc.postgres0.yaml
 - svc.pycrudapi.yaml
 images:
-- name: ghcr.io/longwuyuan/python-crud-api
+- name: ghcr.io/venkatapython/python-crud-api
   newTag: main-17c244f
